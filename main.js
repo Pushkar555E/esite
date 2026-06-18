@@ -59,6 +59,100 @@ const SERVICES_DATA = [
   { name: "Basic Website Deployment", price: "₹500–1500", cat: "business" }
 ];
 
+// --- Bulletin & Advisory Posts Dataset ---
+const BULLETIN_POSTS_DATA = [
+  {
+    id: 1,
+    category: "EPF Portal Support",
+    date: "June 2026",
+    title: "EPF Withdrawal Guide: Steps to Avoid Claim Rejections",
+    excerpt: "EPF withdrawals get rejected due to tiny details. Here is how to ensure your profile, bank credentials, and mobile fields match the UAN requirements.",
+    content: `
+      <div class="bulletin-article-meta">EPF Portal Support · June 2026</div>
+      <h3 class="bulletin-article-title">EPF Withdrawal Guide: Steps to Avoid Claim Rejections</h3>
+      <div class="bulletin-article-content">
+        <p>EPF (Employees' Provident Fund) withdrawals are highly sensitive transactions. Over 35% of online withdrawal claims get rejected by the EPFO portal due to easily preventable documentation discrepancies. If you are planning to file a claim, verify these steps before submitting.</p>
+        
+        <h4>1. Critical Data Matching</h4>
+        <p>Your Name, Father's Name, and Date of Birth (DOB) must match exactly across three critical nodes: your Aadhaar card, your UAN Member Profile, and your bank account. Even a one-letter spelling mismatch or middle-name omission will trigger an automatic rejection.</p>
+
+        <h4>2. Bank Account & Cheque Verification</h4>
+        <p>When applying online, you must upload a scanned copy of a cancelled cheque or bank passbook. Ensure the following criteria are met:</p>
+        <ul>
+          <li>Your Name must be clearly printed on the cheque leaf. Passbooks must contain a clear, stamped photograph.</li>
+          <li>The bank account number and IFSC code must be completely readable in the scan.</li>
+          <li>Upload only high-resolution JPG/PDF formats (between 100KB and 500KB).</li>
+        </ul>
+
+        <blockquote>
+          "A major reason for claim rejections is uploading blurry passbook photos. Scan documents using proper high-resolution flatbed scanners, not phone cameras under dim lighting."
+        </blockquote>
+
+        <h4>3. Active Mobile Linkages</h4>
+        <p>Since the EPFO portal uses multi-stage OTP confirmations, your Aadhaar must be linked to your active mobile number. Ensure your mobile number matches on both the EPFO profile and your Aadhaar database to receive verification OTPs without delay.</p>
+      </div>
+    `
+  },
+  {
+    id: 2,
+    category: "Academic Admissions",
+    date: "June 2026",
+    title: "WBSU Admissions: Student Pre-requisite Checklist",
+    excerpt: "A complete guide to college admission forms under WBSU. Learn which documents to carry to ensure smooth submissions.",
+    content: `
+      <div class="bulletin-article-meta">Academic Admissions · June 2026</div>
+      <h3 class="bulletin-article-title">WBSU Admissions: Student Pre-requisite Checklist</h3>
+      <div class="bulletin-article-content">
+        <p>The online admission cycle for undergraduate courses under West Bengal State University (WBSU) is highly competitive. With portal servers experiencing high loads during deadlines, filling your form accurately on the first attempt is critical. Prepare these documents beforehand.</p>
+
+        <h4>1. Essential Academic Credentials</h4>
+        <p>Have physical copies of your Secondary (Class 10) Admit Card (for Age Proof) and Higher Secondary (Class 12) Marksheet. Double-check that your total marks, subjects, and school details are entered exactly as they appear on your official marksheets.</p>
+
+        <h4>2. Image & Signature Format Rules</h4>
+        <p>Portals enforce strict size thresholds for photo and signature uploads:</p>
+        <ul>
+          <li><strong>Passport Photo:</strong> Color photograph on white background (sized between 10KB and 50KB).</li>
+          <li><strong>Signature:</strong> Written in black ink on clean white paper (sized between 5KB and 20KB).</li>
+        </ul>
+
+        <blockquote>
+          "We offer professional resizing and scanning desks to ensure your photos, marksheet scans, and signatures fit the university portal parameters exactly, avoiding file-size upload failures."
+        </blockquote>
+
+        <h4>3. Caste & Income Certificates</h4>
+        <p>If you are claiming SC, ST, OBC, or EWS quotas, the reservation certificate must be issued by a competent authority in West Bengal. Ensure the certificate holder's name matches the applicant's name exactly. Stale income certificates are not accepted for fee concessions; get a fresh local certificate.</p>
+      </div>
+    `
+  },
+  {
+    id: 3,
+    category: "Government IDs",
+    date: "June 2026",
+    title: "Aadhaar Card Updates: Biometrics vs Address Update Guide",
+    excerpt: "Understand the difference between online self-updates and biometric center updates to save time and money.",
+    content: `
+      <div class="bulletin-article-meta">Government IDs · June 2026</div>
+      <h3 class="bulletin-article-title">Aadhaar Card Updates: Biometrics vs Address Update Guide</h3>
+      <div class="bulletin-article-content">
+        <p>Aadhaar card updates are categorized into two types: Demographic updates (name, DOB, address, gender) and Biometric updates (fingerprints, iris scan, facial photograph). Depending on what you need to change, the procedure and center requirements differ.</p>
+
+        <h4>1. Demographic Online Address Updates</h4>
+        <p>If you only need to update your residential address, this can be done online. You must provide a valid supporting document (such as an electricity bill, bank passbook, voter card, or rent agreement) showing your new address. Your Aadhaar must be linked to your mobile phone to complete the online OTP verification.</p>
+
+        <h4>2. Biometric & Mobile Number Linkage</h4>
+        <p>Changes to your mobile number, email ID, photo, or fingerprint biometrics CANNOT be done online. These require physical visits to an authorized Aadhaar Seva Kendra. Biometrics must be updated once when a child reaches 5 years, and again at 15 years.</p>
+
+        <blockquote>
+          "Do not fall for online scams claiming to update mobile numbers without visit. Aadhaar security rules require physical biometric authentication for mobile and photo changes."
+        </blockquote>
+
+        <h4>3. Verifying Status Updates</h4>
+        <p>Once submitted, updates usually reflect within 7 to 15 working days. You can track status online using the Enrollment ID (EID) printed on the acknowledgement slip. Once generated, we can assist you with downloading and printing the secure PVC Aadhaar card directly at our desk.</p>
+      </div>
+    `
+  }
+];
+
 function getLink(target) {
   const isLocalServer = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
   const isFileProtocol = window.location.protocol === 'file:';
@@ -534,5 +628,57 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   });
+
+  // --- 9. Bulletin Rendering & Modal logic ---
+  const bulletinGrid = document.getElementById('bulletin-posts-grid');
+  const bulletinModal = document.getElementById('bulletin-reader-modal');
+  const bulletinModalContent = document.getElementById('bulletin-reader-content');
+  const bulletinModalCloseBtn = document.getElementById('bulletin-modal-close-btn');
+  const bulletinModalCloseBg = document.getElementById('bulletin-modal-close-bg');
+
+  if (bulletinGrid && bulletinModal && bulletinModalContent) {
+    BULLETIN_POSTS_DATA.forEach(post => {
+      const card = document.createElement('div');
+      card.className = 'bulletin-card reveal';
+      card.innerHTML = `
+        <div class="bulletin-card-meta">${post.category} · ${post.date}</div>
+        <h3>${post.title}</h3>
+        <p>${post.excerpt}</p>
+        <span class="bulletin-read-more">Read Guide →</span>
+      `;
+
+      card.addEventListener('click', () => {
+        // Render detailed content
+        bulletinModalContent.innerHTML = post.content;
+        
+        // Re-inject close button since we overwrite innerHTML
+        bulletinModalContent.appendChild(bulletinModalCloseBtn);
+
+        // Open modal
+        bulletinModal.classList.add('active');
+        bulletinModal.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden'; // Lock scroll
+      });
+
+      bulletinGrid.appendChild(card);
+    });
+
+    // Modal close handlers
+    const closeBulletinModal = () => {
+      bulletinModal.classList.remove('active');
+      bulletinModal.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = ''; // Restore scroll
+    };
+
+    if (bulletinModalCloseBtn) bulletinModalCloseBtn.addEventListener('click', closeBulletinModal);
+    if (bulletinModalCloseBg) bulletinModalCloseBg.addEventListener('click', closeBulletinModal);
+
+    // Close on ESC
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && bulletinModal.classList.contains('active')) {
+        closeBulletinModal();
+      }
+    });
+  }
 
 });
