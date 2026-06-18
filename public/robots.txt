@@ -1,0 +1,9 @@
+# https://www.robotstxt.org/robotstxt.html
+User-agent: *
+Allow: /
+
+# Host
+Host: https://esite-two.vercel.app
+
+# Sitemaps
+Sitemap: https://esite-two.vercel.app/sitemap.xml
