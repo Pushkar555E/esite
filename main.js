@@ -214,8 +214,8 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // --- 2. Mobile Menu Toggle ---
-  const hamburger = document.getElementById('cafe-hamburger');
-  const navMenu = document.getElementById('cafe-nav-menu');
+  const hamburger = document.getElementById('menu-toggle');
+  const navMenu = document.getElementById('nav-menu');
 
   if (hamburger && navMenu) {
     hamburger.addEventListener('click', () => {
@@ -234,7 +234,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // --- 3. Floating Navbar Scroll Blur Class ---
-  const navbar = document.getElementById('cafe-navbar');
+  const navbar = document.getElementById('navbar');
   if (navbar) {
     const handleScroll = () => {
       if (window.scrollY > 40) {
