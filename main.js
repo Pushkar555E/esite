@@ -681,4 +681,137 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  // --- 10. Live Status Tracker Widget Controller ---
+  const trackerInput = document.getElementById('tracker-ref-input');
+  const trackerBtn = document.getElementById('tracker-lookup-btn');
+  const trackerVisualizer = document.getElementById('tracker-visualizer');
+
+  if (trackerInput && trackerBtn && trackerVisualizer) {
+    trackerBtn.addEventListener('click', () => {
+      const refCode = trackerInput.value.trim().toUpperCase();
+      if (!refCode) {
+        alert('Please enter a valid Reference ID (e.g. EPF-2026).');
+        trackerInput.focus();
+        return;
+      }
+
+      // Disable button during simulation
+      trackerBtn.disabled = true;
+      const originalText = trackerBtn.textContent;
+      trackerBtn.textContent = 'Connecting to Server...';
+      trackerVisualizer.classList.remove('active');
+
+      setTimeout(() => {
+        // Set Reference Text
+        const resRefId = document.getElementById('res-ref-id');
+        if (resRefId) resRefId.textContent = refCode;
+
+        // Reset all nodes
+        const nodes = document.querySelectorAll('.progress-steps-wrapper .step-node');
+        nodes.forEach(n => {
+          n.classList.remove('active', 'processing');
+          n.querySelector('.node-circle').textContent = n.dataset.step === '4' ? '🎉' : (n.dataset.step === '3' ? '⚙️' : '✓');
+        });
+
+        // Determine step & messages based on keyword
+        let targetStep = 2; // Default verified
+        let statusLabel = 'Verified & Awaiting Batch Upload';
+        let detailMsg = '✅ Documents checked & authenticated by agent desk. Queue batch schedule scheduled for next portal upload cycle.';
+        let progressPercent = '33%';
+
+        if (refCode.includes('EPF')) {
+          targetStep = 3;
+          statusLabel = 'Processing on Portal';
+          detailMsg = '⚙️ EPF Claim file successfully uploaded to NSDL/EPFO portal. Secure server link established. Estimated settlement: 48-72 hours.';
+          progressPercent = '66%';
+        } else if (refCode.includes('PAN')) {
+          targetStep = 4;
+          statusLabel = 'Completed & Dispatched';
+          detailMsg = '🎉 PAN Card allocation completed. Digital e-PAN secure PDF sent to registered mobile number. Physical PVC card dispatched via SpeedPost.';
+          progressPercent = '100%';
+        } else if (refCode.includes('WBSU') || refCode.includes('ADMISSION') || refCode.includes('SCHOLARSHIP')) {
+          targetStep = 2;
+          statusLabel = 'Documents Verified';
+          detailMsg = '✅ Academic marksheet details and photograph scaling checks passed. Form ready for secure submission batch.';
+          progressPercent = '33%';
+        } else {
+          // Choose random step 2, 3 or 4 for any generic ID
+          const randomVal = Math.floor(Math.random() * 3) + 2; // 2, 3, or 4
+          if (randomVal === 2) {
+            targetStep = 2;
+            statusLabel = 'Documents Verified';
+            detailMsg = '✅ Application details checked by support workstation. Core documents authenticated.';
+            progressPercent = '33%';
+          } else if (randomVal === 3) {
+            targetStep = 3;
+            statusLabel = 'Uploaded to Portal';
+            detailMsg = '⚙️ Application packet submitted to official server. Waiting for agency backend batch approval signals.';
+            progressPercent = '66%';
+          } else {
+            targetStep = 4;
+            statusLabel = 'Completed';
+            detailMsg = '🎉 e-Services desk processing completed. Application receipts and official acknowledgments dispatched.';
+            progressPercent = '100%';
+          }
+        }
+
+        // Apply visual updates to nodes
+        nodes.forEach(n => {
+          const stepVal = parseInt(n.dataset.step);
+          if (stepVal < targetStep) {
+            n.classList.add('active');
+            n.querySelector('.node-circle').textContent = '✓';
+          } else if (stepVal === targetStep) {
+            n.classList.add('active');
+            if (targetStep === 4) {
+              n.querySelector('.node-circle').textContent = '🎉';
+            } else if (targetStep === 3) {
+              n.classList.add('processing');
+              n.querySelector('.node-circle').textContent = '⚙️';
+            } else {
+              n.querySelector('.node-circle').textContent = '✓';
+            }
+          }
+        });
+
+        // Set progress bar fill (check vertical/horizontal responsiveness)
+        const progressFill = document.getElementById('progress-fill');
+        if (progressFill) {
+          if (window.innerWidth <= 640) {
+            progressFill.style.width = '100%';
+            progressFill.style.height = progressPercent;
+          } else {
+            progressFill.style.height = '100%';
+            progressFill.style.width = progressPercent;
+          }
+        }
+
+        // Set status labels
+        const resStatusLabel = document.getElementById('res-status-label');
+        if (resStatusLabel) {
+          resStatusLabel.textContent = statusLabel;
+          resStatusLabel.className = targetStep === 4 ? 'status-badge-active completed' : 'status-badge-active';
+        }
+
+        // Set detail notes
+        const resDetailsMsg = document.getElementById('tracker-details-msg');
+        if (resDetailsMsg) resDetailsMsg.innerHTML = detailMsg;
+
+        // Show visualizer
+        trackerVisualizer.classList.add('active');
+
+        // Restore button state
+        trackerBtn.disabled = false;
+        trackerBtn.textContent = originalText;
+      }, 1000);
+    });
+
+    // Also support triggering on Enter key
+    trackerInput.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') {
+        trackerBtn.click();
+      }
+    });
+  }
+
 });
