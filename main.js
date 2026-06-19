@@ -158,9 +158,9 @@ function getLink(target) {
   const isFileProtocol = window.location.protocol === 'file:';
 
   const PRODUCTION_DOMAINS = {
-    dev: 'https://your-dev-portfolio-url.com',
-    mkt: 'https://your-marketing-url.com',
-    cafe: 'https://your-cybercafe-url.com'
+    dev: 'https://pushkar-port.vercel.app',
+    mkt: 'https://dmsite-sooty.vercel.app',
+    cafe: 'https://esite.vercel.app'
   };
 
   const DEV_PORTS = {
