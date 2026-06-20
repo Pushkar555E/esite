@@ -198,6 +198,31 @@ document.addEventListener('DOMContentLoaded', () => {
   document.querySelectorAll('.client-dev-btn').forEach(link => link.setAttribute('href', getLink('dev')));
   document.querySelectorAll('.client-marketing-btn').forEach(link => link.setAttribute('href', getLink('mkt')));
 
+  // --- 0.1. Rotating Announcement Bar Messages ---
+  const barMsgEl = document.getElementById('bar-rotating-msg');
+  const barMessages = [
+    '🛡️ Government Portals Verified Agent Partner Desk — Serving Ichapur since 2022',
+    '📌 WBSU Admissions Open — Get your forms filled accurately today!',
+    '⚡ EPF Claims settled in 48–72 hrs · Call +91 90076 34717',
+    '🎓 JEE / NEET / State Exam registrations — Expert help, zero errors',
+    '✅ 1,000+ customers served · Transparent pricing · No hidden fees',
+  ];
+  let barMsgIndex = 0;
+
+  if (barMsgEl && barMessages.length > 1) {
+    barMsgEl.style.transition = 'opacity 0.35s ease, transform 0.35s ease';
+    setInterval(() => {
+      barMsgEl.style.opacity = '0';
+      barMsgEl.style.transform = 'translateY(-8px)';
+      setTimeout(() => {
+        barMsgIndex = (barMsgIndex + 1) % barMessages.length;
+        barMsgEl.textContent = barMessages[barMsgIndex];
+        barMsgEl.style.opacity = '1';
+        barMsgEl.style.transform = 'translateY(0)';
+      }, 350);
+    }, 4000);
+  }
+
   // --- 1. Interactive Document Checklist Selector ---
   const checklistSelector = document.getElementById('checklist-selector');
   if (checklistSelector) {
@@ -219,8 +244,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
   if (hamburger && navMenu) {
     hamburger.addEventListener('click', () => {
-      hamburger.classList.toggle('active');
+      const isActive = hamburger.classList.toggle('active');
       navMenu.classList.toggle('active');
+      hamburger.setAttribute('aria-expanded', isActive ? 'true' : 'false');
     });
 
     // Close menu when clicking navigation options
@@ -229,6 +255,7 @@ document.addEventListener('DOMContentLoaded', () => {
       link.addEventListener('click', () => {
         hamburger.classList.remove('active');
         navMenu.classList.remove('active');
+        hamburger.setAttribute('aria-expanded', 'false');
       });
     });
   }
@@ -511,7 +538,7 @@ document.addEventListener('DOMContentLoaded', () => {
       if (filtered.length === 0) {
         ratesGrid.innerHTML = `
           <div class="no-results-card">
-            <p>🔍 No matching services found. Please refine your query or contact us directly below.</p>
+            <p>🔍 No matching services found in this catalog. However, we support 50+ additional digital portals and custom tasks! Please submit an inquiry below or contact us directly.</p>
           </div>
         `;
         return;
@@ -523,6 +550,7 @@ document.addEventListener('DOMContentLoaded', () => {
         card.className = 'directory-rate-card reveal';
         card.setAttribute('data-target-action', cardAction.target);
         card.setAttribute('data-target-value', cardAction.value);
+        card.setAttribute('data-cat', service.cat);
         card.innerHTML = `
           <div class="rate-card-header">
             <span class="rate-icon">${getIconForCategory(service.cat)}</span>
