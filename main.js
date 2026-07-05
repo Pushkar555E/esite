@@ -59,6 +59,57 @@ const SERVICES_DATA = [
   { name: "Basic Website Deployment", price: "₹500–1500", cat: "business" }
 ];
 
+const RATE_CATEGORY_CARDS = [
+  {
+    title: "Documents",
+    icon: "DOC",
+    badge: "Everyday Help",
+    starting: "â‚¹20â€“50",
+    blurb: "Typing, conversion, PDF work and resume-related support.",
+    services: ["Document Typing", "PDF Merge/Split/Compress", "Word â†” PDF Conversion", "Image to PDF", "Resume Update"]
+  },
+  {
+    title: "Government Forms",
+    icon: "GOV",
+    badge: "Popular",
+    starting: "â‚¹50â€“200",
+    blurb: "Online forms, certificates, schemes and ID-related applications.",
+    services: ["Online Form Filling", "Government Scheme Registration", "Voter ID Application/Correction", "Income/Caste/Residence Certificate Application", "Ration Card Application Assistance"]
+  },
+  {
+    title: "Aadhaar / PAN Related",
+    icon: "ID",
+    badge: "Best Value",
+    starting: "â‚¹50â€“100",
+    blurb: "PAN, Aadhaar-related downloads, linking, and document checks.",
+    services: ["PAN Card (New/Correction) Assistance", "PANâ€“Aadhaar Linking Assistance", "Instant e-PAN Download Assistance", "Aadhaar PVC Download/Print Assistance", "Aadhaar Address Update Assistance*"]
+  },
+  {
+    title: "Printing & Scanning",
+    icon: "PRN",
+    badge: "Quick Desk",
+    starting: "â‚¹20â€“50",
+    blurb: "Digital document preparation and print-ready file support.",
+    services: ["PDF Merge/Split/Compress", "Word â†” PDF Conversion", "Image to PDF", "Document Typing"]
+  },
+  {
+    title: "Online Applications",
+    icon: "APP",
+    badge: "Students",
+    starting: "â‚¹50â€“200",
+    blurb: "Admissions, jobs, scholarships, passport and travel bookings.",
+    services: ["College Admission Forms", "Job Application Forms", "Scholarship Form Fill-up", "Passport Application Assistance", "Railway Ticket Booking"]
+  },
+  {
+    title: "Other Services",
+    icon: "MORE",
+    badge: "Custom",
+    starting: "â‚¹100â€“300",
+    blurb: "Business, design, account setup and custom digital desk work.",
+    services: ["GST Registration Assistance", "MSME/Udyam Registration Assistance", "Business Logo Design", "Canva Poster/Flyer", "Basic Website Deployment"]
+  }
+];
+
 // --- Bulletin & Advisory Posts Dataset ---
 const BULLETIN_POSTS_DATA = [
   {
@@ -395,7 +446,45 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // --- 8. Interactive Price Directory Handler & Component Actions ---
+  // --- 8. Compact Price Category Cards ---
+  const rateCategoryGrid = document.getElementById('rate-category-grid');
+
+  if (rateCategoryGrid) {
+    const findService = (name) => SERVICES_DATA.find(service => service.name === name);
+
+    rateCategoryGrid.innerHTML = RATE_CATEGORY_CARDS.map((category, index) => {
+      const services = category.services
+        .map(name => findService(name))
+        .filter(Boolean);
+      const preview = services.slice(0, 4);
+
+      return `
+        <article class="rate-category-card glass reveal" style="--d:${Math.min(index * 0.05, 0.25)}s">
+          <div class="rate-category-top">
+            <span class="rate-category-icon">${category.icon}</span>
+            <span class="rate-category-badge">${category.badge}</span>
+          </div>
+          <h3>${category.title}</h3>
+          <p>${category.blurb}</p>
+          <div class="rate-category-price">
+            <span>Starts from</span>
+            <strong>${category.starting}</strong>
+          </div>
+          <ul class="rate-preview-list">
+            ${preview.map(service => `<li><span>${service.name}</span><strong>${service.price}</strong></li>`).join('')}
+          </ul>
+          <details class="rate-full-details">
+            <summary>View full price list</summary>
+            <div class="rate-full-list">
+              ${services.map(service => `<div><span>${service.name}</span><strong>${service.price}</strong></div>`).join('')}
+            </div>
+          </details>
+        </article>
+      `;
+    }).join('');
+  }
+
+  // --- 9. Interactive Price Directory Handler & Component Actions ---
   const ratesGrid = document.getElementById('rates-list-grid');
   const searchInput = document.getElementById('dir-search-input');
   const clearBtn = document.getElementById('dir-clear-btn');
