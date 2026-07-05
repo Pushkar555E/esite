@@ -170,8 +170,8 @@ function getLink(target) {
   };
 
   const RELATIVE_PATHS = {
-    dev: '../PushkarPort/index.html',
-    mkt: '../dmsite/index.html',
+    dev: 'https://pushkar-port.vercel.app/',
+    mkt: 'https://dmsite-sooty.vercel.app/',
     cafe: './index.html'
   };
 
@@ -188,7 +188,7 @@ function getLink(target) {
 const trackerVariables = {
   aadhaarTarget: 150,      // "150+ Profile Updates"
   panTarget: 320,          // "320+ New & Corrections"
-  epfTarget: 120,          // "120+ Claims Settled"
+  epfTarget: 120,
   examsTarget: 450         // "450+ Registrations Completed"
 };
 
@@ -201,11 +201,11 @@ document.addEventListener('DOMContentLoaded', () => {
   // --- 0.1. Rotating Announcement Bar Messages ---
   const barMsgEl = document.getElementById('bar-rotating-msg');
   const barMessages = [
-    '🛡️ Government Portals Verified Agent Partner Desk — Serving Ichapur since 2022',
-    '📌 WBSU Admissions Open — Get your forms filled accurately today!',
-    '⚡ EPF Claims settled in 48–72 hrs · Call +91 90076 34717',
-    '🎓 JEE / NEET / State Exam registrations — Expert help, zero errors',
-    '✅ 1,000+ customers served · Transparent pricing · No hidden fees',
+    'Local e-service assistance desk in Ichapur',
+    'WBSU and college admission form assistance available',
+    'EPF/PF claim support and document checklist help · Call +91 90076 34717',
+    'Exam registration, scanning, printing and online form assistance',
+    'Transparent pricing · Official fees are paid separately where applicable',
   ];
   let barMsgIndex = 0;
 
@@ -750,7 +750,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (refCode.includes('EPF')) {
           targetStep = 3;
           statusLabel = 'Processing on Portal';
-          detailMsg = '⚙️ EPF Claim file successfully uploaded to NSDL/EPFO portal. Secure server link established. Estimated settlement: 48-72 hours.';
+          detailMsg = 'EPF/PF claim preparation usually includes document review, KYC checks and careful portal submission. Official processing time depends on EPFO.';
           progressPercent = '66%';
         } else if (refCode.includes('PAN')) {
           targetStep = 4;
@@ -773,7 +773,7 @@ document.addEventListener('DOMContentLoaded', () => {
           } else if (randomVal === 3) {
             targetStep = 3;
             statusLabel = 'Uploaded to Portal';
-            detailMsg = '⚙️ Application packet submitted to official server. Waiting for agency backend batch approval signals.';
+            detailMsg = 'Application details may be ready for portal submission or follow-up. Official approval depends on the relevant department or portal.';
             progressPercent = '66%';
           } else {
             targetStep = 4;

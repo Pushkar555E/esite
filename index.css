@@ -1,7 +1,7 @@
 ﻿/* ===================================================================
-   PUSHKAR DIGITAL POINT & E-SERVICES HUB
+   CLICK ZONE CYBER CAFE & DIGITAL SERVICES
    Aesthetic: Premium Clean Trust Light Glassmorphism Style
-   Colors: Corporate Navy, Active Blue, Secure Trust Green, Slate Dark
+   Colors: Indigo, Cyan, Slate, Clean Service Neutrals
    SEO + Conversion Optimized â€” Updated June 2026
    =================================================================== */
 
@@ -15,10 +15,10 @@
 :root {
   --bg: #FFFFFF;
   --bg-alt: #F8FAFC;
-  --primary: #1E3A8A; /* Corporate Navy */
-  --primary-light: #2563EB; /* Active Blue */
-  --accent: #10B981; /* Secure Trust Green */
-  --accent-light: #D1FAE5;
+  --primary: #312E81; /* Service Indigo */
+  --primary-light: #06B6D4; /* Service Cyan */
+  --accent: #0891B2; /* Deep Cyan */
+  --accent-light: #CFFAFE;
   
   --text: #0F172A; /* Slate Dark */
   --text-muted: #475569;
@@ -183,6 +183,13 @@ h1, h2, h3, h4, h5, h6 {
   display: flex;
   align-items: center;
   gap: 10px;
+}
+
+.brand-mark {
+  width: 38px;
+  height: 38px;
+  border-radius: 11px;
+  flex-shrink: 0;
 }
 
 .nav-logo-icon {
@@ -403,12 +410,25 @@ h1, h2, h3, h4, h5, h6 {
 .hero-illustration {
   display: flex;
   justify-content: center;
+  position: relative;
+  min-height: 320px;
+}
+
+.hero-service-image {
+  width: min(100%, 520px);
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-lg);
 }
 
 .shield-graphic {
-  position: relative;
-  width: 220px;
-  height: 220px;
+  position: absolute;
+  right: 12px;
+  bottom: -18px;
+  width: 118px;
+  height: 118px;
   background: #ffffff;
   border-radius: 50%;
   box-shadow: var(--shadow-lg);
@@ -448,7 +468,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .shield-icon {
-  font-size: 80px;
+  font-size: 44px;
   position: relative;
   z-index: 2;
 }
@@ -666,6 +686,13 @@ h1, h2, h3, h4, h5, h6 {
   font-size: 14px;
   font-weight: 600;
   color: var(--text);
+}
+
+.hero-brand-mark {
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  flex-shrink: 0;
 }
 
 .status-indicator {
@@ -1936,6 +1963,13 @@ h1, h2, h3, h4, h5, h6 {
   font-weight: 800;
   color: var(--primary);
   margin-bottom: 16px;
+}
+
+.footer-brand-mark {
+  width: 38px;
+  height: 38px;
+  border-radius: 11px;
+  flex-shrink: 0;
 }
 
 .cafe-footer .location {
